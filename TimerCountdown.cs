@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class TimerCountdown : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class TimerCountdown : MonoBehaviour
 	public int minutesLeft = 10;
 	public bool takingMinAway = false;
 	public bool takingSecAway = false;
+	public bool timersRunning = true;
 	void Start()
 	{
 			secondsLeft -= 1;
@@ -20,16 +22,22 @@ public class TimerCountdown : MonoBehaviour
 
 	void Update()
 	{
-
-		if (takingSecAway == false && secondsLeft > 0)
+		if (timersRunning)
 		{
-			StartCoroutine(secondTake());
-		}  
-		if (takingMinAway == false && minutesLeft > 0)
-		{
-			StartCoroutine(minuteTake());
+			if (takingSecAway == false && secondsLeft > 0)
+			{
+				StartCoroutine(secondTake());
+			} 
+			if (takingMinAway == false && minutesLeft > 0)
+			{
+				StartCoroutine(minuteTake());
+			} 		
+			if(minutesLeft == 0 && secondsLeft == 0 ){
+				Debug.Log("Out of time my friend");
+				timersRunning = false;
+			}
+		}
 
-		} 		
 
 	}
 	IEnumerator secondTake ()

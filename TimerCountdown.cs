@@ -12,6 +12,11 @@ public class TimerCountdown : MonoBehaviour
 	public bool takingMinAway = false;
 	public bool takingSecAway = false;
 	public bool timersRunning = true;
+	public UnityEvent endofTime;
+ 
+    public void Invoke() {
+        endofTime.Invoke();
+    }
 	void Start()
 	{
 			secondsLeft -= 1;
@@ -36,6 +41,12 @@ public class TimerCountdown : MonoBehaviour
 				Debug.Log("Out of time my friend");
 				timersRunning = false;
 			}
+			if(minutesLeft < 1)
+			{
+				textDisplay.GetComponent<Text>().color = Color.red;			
+			}
+		} else {
+			Invoke();
 		}
 
 
